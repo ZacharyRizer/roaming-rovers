@@ -1,4 +1,4 @@
-# Roaming Rovers ![](/public/images/mars-icon.png)
+# Roaming Rovers <img src="/public/images/mars-icon.png" alt="icon" width="30" />
 
 ### _Exploring Mars with Curiosity, Spirit, and Opportunity_
 
