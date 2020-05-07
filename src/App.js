@@ -1,8 +1,12 @@
 import React from 'react';
+import { Grommet } from 'grommet';
+import theme from './style';
 
 function App() {
   return (
-    <h1>Hello world!</h1>
+    <Grommet theme={theme}>
+      <h1>Hello world!</h1>
+    </Grommet>
   );
 }
 
