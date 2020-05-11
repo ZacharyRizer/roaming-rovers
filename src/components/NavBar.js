@@ -6,7 +6,6 @@ import { Search } from 'grommet-icons';
 import AppContext from '../AppContext';
 
 const NavBar = (props) => {
-  const { setShowSideBar } = useContext(AppContext);
   const { showSearchBar, setShowSearchBar } = useContext(AppContext);
 
   return (
@@ -21,36 +20,21 @@ const NavBar = (props) => {
       style={{ zIndex: '1' }}
       {...props}>
       <Link to="/">
-        <Button onClick={() => setShowSideBar(false)}>
+        <Button>
           <Heading level="3" margin="small" color="color1">
             Roaming Rovers
           </Heading>
         </Button>
       </Link>
-      <Box direction="row" alignSelf="left">
+      <Box direction="row" alignSelf="start">
         <Link to="/Curiosity">
-          <Button
-            color="color1"
-            label="Curiosity"
-            margin="5px"
-            onClick={() => setShowSideBar(true)}
-          />
+          <Button color="color1" label="Curiosity" margin="5px" />
         </Link>
         <Link to="/Spirit">
-          <Button
-            color="color1"
-            label="Spirit"
-            margin="5px"
-            onClick={() => setShowSideBar(true)}
-          />
+          <Button color="color1" label="Spirit" margin="5px" />
         </Link>
         <Link to="/Opportunity">
-          <Button
-            color="color1"
-            label="Opportunity"
-            margin="5px"
-            onClick={() => setShowSideBar(true)}
-          />
+          <Button color="color1" label="Opportunity" margin="5px" />
         </Link>
       </Box>
       <Box direction="row" align="center">

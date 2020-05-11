@@ -10,6 +10,11 @@ const theme = {
       grey2: 'rgba(255, 230, 220, 0.2)',
       text: 'color1',
     },
+    focus: {
+      border: {
+        color: '#eeeeee',
+      },
+    },
     font: {
       family: 'Roboto',
       size: '18px',

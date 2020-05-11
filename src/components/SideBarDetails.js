@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Box, Button, Heading } from 'grommet';
 
-const SideBarDetails = (props) => {
+const SideBarDetails = ({ rover }) => {
   return (
-    <Box fill direction="column" align="left" justify="top">
+    <Box fill direction="column" align="start" justify="start">
       <Heading level="3" margin="medium" color="color4">
-        Meet {props.rover}
+        Meet {rover}
       </Heading>
       <Box
         height="small"
@@ -14,29 +14,29 @@ const SideBarDetails = (props) => {
         elevation="large"
         round="medium"
         margin="medium"
-        background={`url(/images/${props.rover}Profile.jpg)`}
+        background={`url(/images/${rover}Profile.jpg)`}
       />
-      <Link to="/">
-        <Button>
+      <NavLink to={`/${rover}/rover-details`}>
+        <Button focusIndicator={false}>
           <Heading level="4" margin="medium" color="color4">
             Rover Details
           </Heading>
         </Button>
-      </Link>
-      <Link to="/">
-        <Button>
+      </NavLink>
+      <NavLink to={`/${rover}/mission-details`}>
+        <Button focusIndicator={false}>
           <Heading level="4" margin="medium" color="color4">
             Mission Details
           </Heading>
         </Button>
-      </Link>
-      <Link to="/">
-        <Button>
+      </NavLink>
+      <NavLink to={`/${rover}/iconic-shots`}>
+        <Button focusIndicator={false}>
           <Heading level="4" margin="medium" color="color4">
-            {props.rover}'s Best Shots
+            {rover}'s Iconic Shots
           </Heading>
         </Button>
-      </Link>
+      </NavLink>
     </Box>
   );
 };

@@ -7,11 +7,11 @@ const SideBar = (props) => {
   const currentRover = props.match.params.rover;
   return (
     <Box
-      width="medium"
+      width="20rem"
       background="grey2"
       elevation="large"
       align="center"
-      justify="top">
+      justify="start">
       <SideBarDetails rover={currentRover} />
     </Box>
   );

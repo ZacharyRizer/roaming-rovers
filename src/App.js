@@ -6,12 +6,11 @@ import theme from './style';
 import AppContext from './AppContext';
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
-import RoverDetails from './components/RoverDetails';
+import RoverMainPage from './components/RoverMainPage';
 import SideBar from './components/SideBar';
 import SearchBar from './components/SearchBar';
 
 const App = () => {
-  const [showSideBar, setShowSideBar] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   return (
     <Grommet theme={theme} full>
@@ -20,8 +19,6 @@ const App = () => {
           value={{
             showSearchBar,
             setShowSearchBar,
-            showSideBar,
-            setShowSideBar,
           }}>
           <Box fill>
             <NavBar />
@@ -32,7 +29,7 @@ const App = () => {
                 render={(props) => (
                   <>
                     <SideBar {...props} />
-                    <RoverDetails {...props} />
+                    <RoverMainPage {...props} />
                   </>
                 )}
               />
