@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { Box, Button, Heading } from 'grommet';
+import { NavLink } from 'react-router-dom';
+import { Box, Heading } from 'grommet';
 
 const SideBarDetails = ({ rover }) => {
   return (

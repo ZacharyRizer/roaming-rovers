@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Box, Heading } from 'grommet';
+import { Box } from 'grommet';
 
 import CuriosityRoverDetails from './Curiosity/CuriosityRoverDetails.js';
 import CuriosityMissionDetails from './Curiosity/CuriosityMissionDetails.js';
