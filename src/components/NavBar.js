@@ -27,7 +27,7 @@ const NavBar = (props) => {
           </Heading>
         </Button>
       </Link>
-      <Box direction="row" alignSelf="start">
+      <Box direction="row">
         <Link to="/Curiosity/rover-details">
           <Button color="color1" label="Curiosity" margin="5px" />
         </Link>
@@ -37,16 +37,6 @@ const NavBar = (props) => {
         <Link to="/Opportunity/rover-details">
           <Button color="color1" label="Opportunity" margin="5px" />
         </Link>
-      </Box>
-      <Box direction="row" align="center">
-        <Button
-          icon={<Search color="color1" />}
-          onClick={() => setShowSearchBar(true)}
-        />
-        {showSearchBar && <SearchBar />}
-        <Heading level="4" margin="small" color="color1">
-          Discover Mars!
-        </Heading>
       </Box>
     </Box>
   );

@@ -13,5 +13,5 @@ body {
 .active {
   color: #ff5435;
   font-weight: 700;
-  text-shadow: 0.25px 0.25px;
+  text-shadow: 0.15px 0.15px;
 }

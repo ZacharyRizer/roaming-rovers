@@ -12,7 +12,7 @@ const theme = {
     },
     focus: {
       border: {
-        color: '#eeeeee',
+        color: 'color1',
       },
     },
     font: {

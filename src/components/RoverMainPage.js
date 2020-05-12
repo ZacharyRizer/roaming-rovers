@@ -11,6 +11,7 @@ import OpportunityShots from './Opportunity/OpportunityShots.js';
 import SpiritRoverDetails from './Spirit/SpiritRoverDetails.js';
 import SpiritMissionDetails from './Spirit/SpiritMissionDetails.js';
 import SpiritShots from './Spirit/SpiritShots.js';
+import SearchBar from './SearchBar.js';
 
 const RoverMainPage = (props) => {
   return (
@@ -40,6 +41,7 @@ const RoverMainPage = (props) => {
           component={SpiritMissionDetails}
         />
         <Route path="/Spirit/iconic-shots" component={SpiritShots} />
+        <Route path="/Curiosity/search" component={SearchBar} />
       </Switch>
     </Box>
   );
