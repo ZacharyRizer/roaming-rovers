@@ -21,6 +21,11 @@ const theme = {
       height: '20px',
     },
   },
+  carousel: {
+    icons: {
+      color: 'color1',
+    },
+  },
 };
 
 export default theme;

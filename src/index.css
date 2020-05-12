@@ -6,6 +6,12 @@ body {
     rgba(255, 232, 196, 1) 100%
   );
 }
+.side-bar-navs {
+  color: #40152a;
+  text-decoration: none;
+}
 .active {
-  background-color: burlywood;
+  color: #ff5435;
+  font-weight: 700;
+  text-shadow: 0.25px 0.25px;
 }

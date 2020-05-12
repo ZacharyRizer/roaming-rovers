@@ -16,26 +16,20 @@ const SideBarDetails = ({ rover }) => {
         margin="medium"
         background={`url(/images/${rover}Profile.jpg)`}
       />
-      <NavLink to={`/${rover}/rover-details`}>
-        <Button focusIndicator={false}>
-          <Heading level="4" margin="medium" color="color4">
-            Rover Details
-          </Heading>
-        </Button>
+      <NavLink to={`/${rover}/rover-details`} className="side-bar-navs">
+        <Heading level="4" margin="medium">
+          Rover Details
+        </Heading>
       </NavLink>
-      <NavLink to={`/${rover}/mission-details`}>
-        <Button focusIndicator={false}>
-          <Heading level="4" margin="medium" color="color4">
-            Mission Details
-          </Heading>
-        </Button>
+      <NavLink to={`/${rover}/mission-details`} className="side-bar-navs">
+        <Heading level="4" margin="medium">
+          Mission Details
+        </Heading>
       </NavLink>
-      <NavLink to={`/${rover}/iconic-shots`}>
-        <Button focusIndicator={false}>
-          <Heading level="4" margin="medium" color="color4">
-            {rover}'s Iconic Shots
-          </Heading>
-        </Button>
+      <NavLink to={`/${rover}/iconic-shots`} className="side-bar-navs">
+        <Heading level="4" margin="medium">
+          {rover}'s Iconic Shots
+        </Heading>
       </NavLink>
     </Box>
   );

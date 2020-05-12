@@ -27,13 +27,13 @@ const NavBar = (props) => {
         </Button>
       </Link>
       <Box direction="row" alignSelf="start">
-        <Link to="/Curiosity">
+        <Link to="/Curiosity/rover-details">
           <Button color="color1" label="Curiosity" margin="5px" />
         </Link>
-        <Link to="/Spirit">
+        <Link to="/Spirit/rover-details">
           <Button color="color1" label="Spirit" margin="5px" />
         </Link>
-        <Link to="/Opportunity">
+        <Link to="/Opportunity/rover-details">
           <Button color="color1" label="Opportunity" margin="5px" />
         </Link>
       </Box>
@@ -42,7 +42,7 @@ const NavBar = (props) => {
           icon={<Search color="color1" />}
           onClick={() => setShowSearchBar(!showSearchBar)}
         />
-        <Heading level="4" margin="none" color="color1">
+        <Heading level="4" margin="small" color="color1">
           Discover Mars!
         </Heading>
       </Box>
