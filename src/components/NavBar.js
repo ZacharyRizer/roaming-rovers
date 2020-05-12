@@ -1,14 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Heading, Button } from 'grommet';
-import { Search } from 'grommet-icons';
-import SearchBar from './SearchBar';
-
-import AppContext from '../AppContext';
 
 const NavBar = (props) => {
-  const { showSearchBar, setShowSearchBar } = useContext(AppContext);
-
   return (
     <Box
       tag="header"
@@ -28,13 +22,13 @@ const NavBar = (props) => {
         </Button>
       </Link>
       <Box direction="row">
-        <Link to="/Curiosity/rover-details">
+        <Link to="/Curiosity/image-search">
           <Button color="color1" label="Curiosity" margin="5px" />
         </Link>
-        <Link to="/Spirit/rover-details">
+        <Link to="/Spirit/image-search">
           <Button color="color1" label="Spirit" margin="5px" />
         </Link>
-        <Link to="/Opportunity/rover-details">
+        <Link to="/Opportunity/image-search">
           <Button color="color1" label="Opportunity" margin="5px" />
         </Link>
       </Box>

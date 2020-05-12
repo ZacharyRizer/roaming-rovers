@@ -4,7 +4,7 @@ import { Box, Heading } from 'grommet';
 
 const SideBarDetails = ({ rover }) => {
   return (
-    <Box fill direction="column" align="start" justify="start">
+    <Box fill direction="column" align="center" justify="start">
       <Heading level="3" margin="medium" color="color4">
         Meet {rover}
       </Heading>
@@ -16,6 +16,11 @@ const SideBarDetails = ({ rover }) => {
         margin="medium"
         background={`url(/images/${rover}Profile.jpg)`}
       />
+      <NavLink to={`/${rover}/image-search`} className="side-bar-navs">
+        <Heading level="4" margin="medium" textAlign="center" rover={rover}>
+          Explore Mars With {rover}
+        </Heading>
+      </NavLink>
       <NavLink to={`/${rover}/rover-details`} className="side-bar-navs">
         <Heading level="4" margin="medium">
           Rover Details

@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, CheckBox, Form, FormField, TextInput } from 'grommet';
+import {
+  Box,
+  Button,
+  CheckBox,
+  Form,
+  FormField,
+  Paragraph,
+  TextInput,
+} from 'grommet';
 import { NavLink } from 'react-router-dom';
 import { apiBaseUrl } from '../config';
 
-const SearchBar = (props) => {
+const SearchBar = ({ rover }) => {
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [photosAvailable, setPhotosAvailable] = useState(true);
   const [photos, setPhotos] = useState([]);
   const [cameras, setCameras] = useState([]);
 
   useEffect(() => {
-    if (photos.length === 0) {
-      loadLatestPhotos();
-    }
-  }, []);
+    loadLatestPhotos();
+  }, [rover]);
 
   const setCameraList = (incomingPhotos) => {
     const usedCameras = [];
@@ -26,7 +34,7 @@ const SearchBar = (props) => {
 
   const loadLatestPhotos = async () => {
     try {
-      const res = await fetch(`${apiBaseUrl}rovers/curiosity/latest_photos`);
+      const res = await fetch(`${apiBaseUrl}rovers/${rover}/latest_photos`);
       if (!res.ok) {
         throw res;
       }
@@ -38,35 +46,83 @@ const SearchBar = (props) => {
     }
   };
 
+  const loadPhotosByDate = async (date) => {
+    try {
+      setFirstLoad(false);
+      setPhotos([]);
+      setCameras([]);
+      const res = await fetch(
+        `${apiBaseUrl}rovers/${rover}/photos?earth_date=${date.date}`
+      );
+      if (!res.ok) {
+        throw res;
+      }
+      const incomingPhotos = await res.json();
+      if (incomingPhotos.photos.length === 0) {
+        setPhotosAvailable(false);
+        return;
+      } else {
+        setPhotosAvailable(true);
+        setCameraList(incomingPhotos.photos);
+        setPhotos(incomingPhotos.photos);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
-    <Box fill align="center">
+    <Box fill margin="medium">
       <Box direction="row">
-        <Box margin="medium" width="20rem">
-          <Form>
-            <FormField name="Date" htmlfor="text-input-id" label="Date">
-              <TextInput id="text-input-id" name="Date" />
+        <Box margin="small" width="20rem">
+          <Form
+            onSubmit={({ value }) => {
+              loadPhotosByDate(value);
+            }}>
+            <FormField name="date" htmlfor="text-input-id" label="Date">
+              <TextInput
+                id="text-input-id"
+                name="date"
+                placeholder="yyyy-mm-dd"
+              />
             </FormField>
             <Box direction="row" gap="medium">
               <Button type="submit" color="color1" label="Submit" />
             </Box>
           </Form>
         </Box>
-        <Box margin="medium" direction="row">
+        <Box margin="small" direction="row">
           {cameras.map((camera) => {
             return <CheckBox key={camera} checked={true} label={camera} />;
           })}
         </Box>
       </Box>
-      <Box flex direction="row" wrap={true}>
+      {firstLoad ? (
+        <Box fill="horizontal" margin="small">
+          <Paragraph fill={true} color="color4" size="large">
+            These are the latest photos from {rover}! Filter these images by
+            camera or enter another date to see more of {rover}'s expedition!
+          </Paragraph>
+        </Box>
+      ) : null}
+      {!photosAvailable ? (
+        <Box fill="horizontal">
+          <Paragraph fill={true} margin="small" color="color4" size="large">
+            {rover} had other work to do this day, there are no photos
+            available. Please select another date.
+          </Paragraph>
+        </Box>
+      ) : null}
+      <Box flex direction="row" overflow="auto" wrap={true}>
         {photos.map((photo) => {
           return (
             <NavLink key={photo.id} to={`/photo/${photo.id}`}>
               <Box
-                height="medium"
-                width="medium"
+                height="19rem"
+                width="19rem"
                 elevation="large"
                 round="medium"
-                margin="medium"
+                margin="small"
                 background={`url(${photo.img_src})`}
               />
             </NavLink>

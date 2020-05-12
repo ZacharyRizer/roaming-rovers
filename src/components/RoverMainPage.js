@@ -14,8 +14,9 @@ import SpiritShots from './Spirit/SpiritShots.js';
 import SearchBar from './SearchBar.js';
 
 const RoverMainPage = (props) => {
+  const currentRover = props.match.params.rover;
   return (
-    <Box fill align="start" justify="start">
+    <Box fill>
       <Switch>
         <Route
           path={`/Curiosity/rover-details`}
@@ -41,7 +42,10 @@ const RoverMainPage = (props) => {
           component={SpiritMissionDetails}
         />
         <Route path="/Spirit/iconic-shots" component={SpiritShots} />
-        <Route path="/Curiosity/search" component={SearchBar} />
+        <Route
+          path={`/${currentRover}/image-search`}
+          render={(props) => <SearchBar {...props} rover={currentRover} />}
+        />
       </Switch>
     </Box>
   );
