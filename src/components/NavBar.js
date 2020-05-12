@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Heading, Button } from 'grommet';
 import { Search } from 'grommet-icons';
+import SearchBar from './SearchBar';
 
 import AppContext from '../AppContext';
 
@@ -40,8 +41,9 @@ const NavBar = (props) => {
       <Box direction="row" align="center">
         <Button
           icon={<Search color="color1" />}
-          onClick={() => setShowSearchBar(!showSearchBar)}
+          onClick={() => setShowSearchBar(true)}
         />
+        {showSearchBar && <SearchBar />}
         <Heading level="4" margin="small" color="color1">
           Discover Mars!
         </Heading>

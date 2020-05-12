@@ -23,12 +23,6 @@ const HomePage = (props) => {
           <Image fit="cover" src="/images/Curiosity/Curiosity3.jpg" />
           <Image fit="cover" src="/images/Opportunity/Opportunity3.jpg" />
           <Image fit="cover" src="/images/Spirit/Spirit3.jpg" />
-          <Image fit="cover" src="/images/Curiosity/Curiosity4.jpg" />
-          <Image fit="cover" src="/images/Opportunity/Opportunity4.jpg" />
-          <Image fit="cover" src="/images/Spirit/Spirit4.jpg" />
-          <Image fit="cover" src="/images/Curiosity/Curiosity5.jpg" />
-          <Image fit="cover" src="/images/Opportunity/Opportunity5.jpg" />
-          <Image fit="cover" src="/images/Spirit/Spirit5.jpg" />
         </Carousel>
       </Box>
     </Box>

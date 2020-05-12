@@ -8,7 +8,6 @@ import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import RoverMainPage from './components/RoverMainPage';
 import SideBar from './components/SideBar';
-import SearchBar from './components/SearchBar';
 
 const App = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
