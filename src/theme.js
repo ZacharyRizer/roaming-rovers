@@ -21,6 +21,11 @@ const theme = {
       height: '20px',
     },
   },
+  button: {
+    border: {
+      radius: '6px',
+    },
+  },
   carousel: {
     icons: {
       color: 'color1',
