@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Button,
-  Form,
-  FormField,
-  Paragraph,
-  RadioButton,
-  TextInput,
-  Heading,
-} from 'grommet';
-import { Spinning } from 'grommet-controls';
-import PhotoPopUp from './PhotoPopUp';
+import { Box, Button, Form, FormField, TextInput } from 'grommet';
+import PhotoPopUp from './SearchBarPieces/PhotoPopUp';
+import CameraList from './SearchBarPieces/CameraList';
+import LoadingMessage from './SearchBarPieces/LoadingMessage';
+import PhotoCards from './SearchBarPieces/PhotoCards';
+import SearchMessages from './SearchBarPieces/SearchMessages';
 import { apiBaseUrl } from '../config';
 
 const SearchBar = ({ rover }) => {
@@ -67,6 +61,7 @@ const SearchBar = ({ rover }) => {
       }
       const incomingPhotos = await res.json();
       if (incomingPhotos.photos.length === 0) {
+        setIsLoaing(false);
         setPhotosAvailable(false);
         return;
       } else {
@@ -115,63 +110,14 @@ const SearchBar = ({ rover }) => {
             </Box>
           </Form>
         </Box>
-        {isLoading ? (
-          <Box fill="horizontal" direction="row" align="center" justify="start">
-            <Heading level="4" color="color4" margin="large">
-              Loading Images
-            </Heading>
-            <Spinning size="xlarge" color="color4" kind="cube-grid" />
-          </Box>
-        ) : (
-          <Box
-            fill="horizontal"
-            margin="small"
-            direction="row"
-            align="center"
-            justify="start">
-            {cameras.map((camera) => {
-              return (
-                <Box margin="small" key={camera}>
-                  <RadioButton name={camera} label={camera} />
-                </Box>
-              );
-            })}
-          </Box>
-        )}
+        {isLoading ? <LoadingMessage /> : <CameraList cameras={cameras} />}
       </Box>
-      {firstLoad ? (
-        <Box margin="small">
-          <Paragraph fill={true} color="color4" size="large">
-            These are the latest photos from {rover}! Filter these images by
-            camera or enter another date to see more of {rover}'s expedition!
-          </Paragraph>
-        </Box>
-      ) : null}
-      {!photosAvailable ? (
-        <Box margin="small">
-          <Paragraph fill={true} margin="small" color="color4" size="large">
-            {rover} had other work to do this day, there are no photos
-            available. Please select another date.
-          </Paragraph>
-        </Box>
-      ) : null}
-      <Box flex direction="row" overflow="auto" wrap={true}>
-        {photos.map((photo) => {
-          return (
-            <Box
-              className="photo-cards"
-              key={photo.id}
-              onClick={() => handleCardClick(photo)}
-              height="19rem"
-              width="19rem"
-              elevation="small"
-              round="small"
-              margin="small"
-              background={`url(${photo.img_src})`}
-            />
-          );
-        })}
-      </Box>
+      <SearchMessages
+        rover={rover}
+        firstLoad={firstLoad}
+        photosAvailable={photosAvailable}
+      />
+      <PhotoCards photos={photos} handleCardClick={handleCardClick} />
     </Box>
   );
 };
