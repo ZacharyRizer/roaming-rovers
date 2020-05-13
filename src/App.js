@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Grommet, Box } from 'grommet';
 import theme from './theme';
 
@@ -11,23 +11,21 @@ import SideBar from './components/SideBar';
 const App = () => {
   return (
     <Grommet theme={theme} full>
-      <BrowserRouter>
-        <Box fill>
-          <NavBar />
-          <Box direction="row" flex overflow={{ horizontal: 'hidden' }}>
-            <Route exact path="/" component={HomePage} />
-            <Route
-              path="/:rover"
-              render={(props) => (
-                <>
-                  <SideBar {...props} />
-                  <RoverMainPage {...props} />
-                </>
-              )}
-            />
-          </Box>
+      <Box fill>
+        <NavBar />
+        <Box direction="row" flex overflow={{ horizontal: 'hidden' }}>
+          <Route exact path="/" component={HomePage} />
+          <Route
+            path="/:rover"
+            render={(props) => (
+              <>
+                <SideBar {...props} />
+                <RoverMainPage {...props} />
+              </>
+            )}
+          />
         </Box>
-      </BrowserRouter>
+      </Box>
     </Grommet>
   );
 };
