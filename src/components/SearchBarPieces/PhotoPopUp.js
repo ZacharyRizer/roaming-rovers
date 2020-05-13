@@ -4,6 +4,7 @@ import { Image, Layer, Paragraph } from 'grommet';
 const PhotoPopUp = ({ photo, setPhotoPopUp }) => {
   return (
     <Layer
+      animation="fadeIn"
       onEsc={() => setPhotoPopUp(false)}
       onClickOutside={() => setPhotoPopUp(false)}>
       <Image fit="contain" src={photo.img_src} />

@@ -8,7 +8,8 @@ const CameraList = ({ cameras }) => {
       margin="small"
       direction="row"
       align="center"
-      justify="start">
+      justify="start"
+      wrap={true}>
       {cameras.map((camera) => {
         return (
           <Box margin="small" key={camera}>

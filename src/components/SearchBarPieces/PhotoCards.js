@@ -10,8 +10,8 @@ const PhotoCards = ({ photos, handleCardClick }) => {
             className="photo-cards"
             key={photo.id}
             onClick={() => handleCardClick(photo)}
-            height="19rem"
-            width="19rem"
+            height="18rem"
+            width="18rem"
             elevation="small"
             round="small"
             margin="small"

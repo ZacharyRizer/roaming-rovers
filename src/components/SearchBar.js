@@ -2,18 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { Box, Button, Form, FormField, TextInput } from 'grommet';
 import PhotoPopUp from './SearchBarPieces/PhotoPopUp';
 import CameraList from './SearchBarPieces/CameraList';
-import LoadingMessage from './SearchBarPieces/LoadingMessage';
 import PhotoCards from './SearchBarPieces/PhotoCards';
 import SearchMessages from './SearchBarPieces/SearchMessages';
 import { apiBaseUrl } from '../config';
 
+// reducer function
+// initial state
+
 const SearchBar = ({ rover }) => {
   const [photoPopUp, setPhotoPopUp] = useState(false);
-  const [isLoading, setIsLoaing] = useState(true);
   const [selectedPhoto, setSelectedPhoto] = useState({});
+  const [isLoading, setIsLoaing] = useState(true);
+  const [photosAvailable, setPhotosAvailable] = useState(true);
+
+  // useReducer(reducer, initialState)
   const [date, setDate] = useState('');
   const [firstLoad, setFirstLoad] = useState(true);
-  const [photosAvailable, setPhotosAvailable] = useState(true);
   const [photos, setPhotos] = useState([]);
   const [cameras, setCameras] = useState([]);
 
@@ -110,11 +114,12 @@ const SearchBar = ({ rover }) => {
             </Box>
           </Form>
         </Box>
-        {isLoading ? <LoadingMessage /> : <CameraList cameras={cameras} />}
+        <CameraList cameras={cameras} />
       </Box>
       <SearchMessages
         rover={rover}
         firstLoad={firstLoad}
+        isLoading={isLoading}
         photosAvailable={photosAvailable}
       />
       <PhotoCards photos={photos} handleCardClick={handleCardClick} />
