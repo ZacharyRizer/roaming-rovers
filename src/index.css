@@ -16,7 +16,7 @@ body {
   text-shadow: 0.15px 0.15px;
 }
 .photo-cards:hover {
-  box-shadow: 0px 0px 10px 5px #8f755c;
+  box-shadow: 0px 0px 8px 5px #c7b6a6;
 }
 
 ::-webkit-datetime-edit-text {
@@ -25,12 +25,15 @@ body {
 }
 ::-webkit-datetime-edit-month-field {
   color: #40152a;
+  text-transform: uppercase;
 }
 ::-webkit-datetime-edit-day-field {
   color: #40152a;
+  text-transform: uppercase;
 }
 ::-webkit-datetime-edit-year-field {
   color: #40152a;
+  text-transform: uppercase;
 }
 ::-webkit-inner-spin-button {
   display: none;

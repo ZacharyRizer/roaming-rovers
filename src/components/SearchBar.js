@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom';
 import { apiBaseUrl } from '../config';
 
 const SearchBar = ({ rover }) => {
+  const [date, setDate] = useState('');
   const [firstLoad, setFirstLoad] = useState(true);
   const [photosAvailable, setPhotosAvailable] = useState(true);
   const [photos, setPhotos] = useState([]);
@@ -80,10 +81,21 @@ const SearchBar = ({ rover }) => {
               loadPhotosByDate(value);
             }}>
             <FormField name="date" htmlfor="text-input-id">
-              <TextInput id="text-input-id" type="date" name="date" />
+              <TextInput
+                id="text-input-id"
+                type="date"
+                name="date"
+                value={date}
+                onChange={(e) => setDate(e.currentTarget.value)}
+              />
             </FormField>
             <Box direction="row" gap="medium">
-              <Button type="submit" color="color4" label="Submit" />
+              <Button
+                type="submit"
+                color="color4"
+                label="Find Photos"
+                margin={{ horizontal: '9px' }}
+              />
             </Box>
           </Form>
         </Box>
