@@ -7,12 +7,15 @@ import {
   Paragraph,
   RadioButton,
   TextInput,
+  Heading,
 } from 'grommet';
+import { Spinning } from 'grommet-controls';
 import PhotoPopUp from './PhotoPopUp';
 import { apiBaseUrl } from '../config';
 
 const SearchBar = ({ rover }) => {
   const [photoPopUp, setPhotoPopUp] = useState(false);
+  const [isLoading, setIsLoaing] = useState(true);
   const [selectedPhoto, setSelectedPhoto] = useState({});
   const [date, setDate] = useState('');
   const [firstLoad, setFirstLoad] = useState(true);
@@ -44,6 +47,7 @@ const SearchBar = ({ rover }) => {
       const incomingPhotos = await res.json();
       setCameraList(incomingPhotos.latest_photos);
       setPhotos(incomingPhotos.latest_photos);
+      setIsLoaing(false);
     } catch (e) {
       console.error(e);
     }
@@ -51,6 +55,7 @@ const SearchBar = ({ rover }) => {
 
   const loadPhotosByDate = async (date) => {
     try {
+      setIsLoaing(true);
       setFirstLoad(false);
       setPhotos([]);
       setCameras([]);
@@ -68,6 +73,7 @@ const SearchBar = ({ rover }) => {
         setPhotosAvailable(true);
         setCameraList(incomingPhotos.photos);
         setPhotos(incomingPhotos.photos);
+        setIsLoaing(false);
       }
     } catch (e) {
       console.error(e);
@@ -109,20 +115,29 @@ const SearchBar = ({ rover }) => {
             </Box>
           </Form>
         </Box>
-        <Box
-          fill="horizontal"
-          margin="small"
-          direction="row"
-          align="center"
-          justify="start">
-          {cameras.map((camera) => {
-            return (
-              <Box margin="small" key={camera}>
-                <RadioButton name={camera} label={camera} />
-              </Box>
-            );
-          })}
-        </Box>
+        {isLoading ? (
+          <Box fill="horizontal" direction="row" align="center" justify="start">
+            <Heading level="4" color="color4" margin="large">
+              Loading Images
+            </Heading>
+            <Spinning size="xlarge" color="color4" kind="cube-grid" />
+          </Box>
+        ) : (
+          <Box
+            fill="horizontal"
+            margin="small"
+            direction="row"
+            align="center"
+            justify="start">
+            {cameras.map((camera) => {
+              return (
+                <Box margin="small" key={camera}>
+                  <RadioButton name={camera} label={camera} />
+                </Box>
+              );
+            })}
+          </Box>
+        )}
       </Box>
       {firstLoad ? (
         <Box margin="small">
