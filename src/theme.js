@@ -27,6 +27,12 @@ const theme = {
       radius: '6px',
     },
   },
+  layer: {
+    overlay: {
+      background: 'rgba(0, 0, 0, 0.7)',
+    },
+    background: 'rgba(0, 0, 0, 0)',
+  },
   radioButton: {
     hover: {
       border: {

@@ -8,10 +8,12 @@ import {
   RadioButton,
   TextInput,
 } from 'grommet';
-import { NavLink } from 'react-router-dom';
+import PhotoPopUp from './PhotoPopUp';
 import { apiBaseUrl } from '../config';
 
 const SearchBar = ({ rover }) => {
+  const [photoPopUp, setPhotoPopUp] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState({});
   const [date, setDate] = useState('');
   const [firstLoad, setFirstLoad] = useState(true);
   const [photosAvailable, setPhotosAvailable] = useState(true);
@@ -72,8 +74,16 @@ const SearchBar = ({ rover }) => {
     }
   };
 
+  const handleCardClick = (photo) => {
+    setSelectedPhoto(photo);
+    setPhotoPopUp(true);
+  };
+
   return (
     <Box margin={{ top: 'medium', horizontal: 'medium' }}>
+      {photoPopUp && (
+        <PhotoPopUp photo={selectedPhoto} setPhotoPopUp={setPhotoPopUp} />
+      )}
       <Box direction="row">
         <Box margin="small" width="20rem">
           <Form
@@ -133,17 +143,17 @@ const SearchBar = ({ rover }) => {
       <Box flex direction="row" overflow="auto" wrap={true}>
         {photos.map((photo) => {
           return (
-            <NavLink key={photo.id} to={`/photo/${photo.id}`}>
-              <Box
-                className="photo-cards"
-                height="19rem"
-                width="19rem"
-                elevation="small"
-                round="small"
-                margin="small"
-                background={`url(${photo.img_src})`}
-              />
-            </NavLink>
+            <Box
+              className="photo-cards"
+              key={photo.id}
+              onClick={() => handleCardClick(photo)}
+              height="19rem"
+              width="19rem"
+              elevation="small"
+              round="small"
+              margin="small"
+              background={`url(${photo.img_src})`}
+            />
           );
         })}
       </Box>

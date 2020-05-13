@@ -1,25 +1,17 @@
 import React from 'react';
-import { Box, Layer } from 'grommet';
-import AppContext from '../AppContext';
+import { Image, Layer, Paragraph } from 'grommet';
 
-const PhotoPopUp = ({ photo }) => {
+const PhotoPopUp = ({ photo, setPhotoPopUp }) => {
   return (
-    <Box>
-      <Layer
-        onEsc={() => setPhotoPupUp(false)}
-        onClickOutside={() => setPhotoPupUp(false)}>
-        <Box
-          key={photo.id}
-          className="photo-cards"
-          height="19rem"
-          width="19rem"
-          elevation="small"
-          round="small"
-          margin="small"
-          background={`url(${photo.img_src})`}
-        />
-      </Layer>
-    </Box>
+    <Layer
+      onEsc={() => setPhotoPopUp(false)}
+      onClickOutside={() => setPhotoPopUp(false)}>
+      <Image fit="contain" src={photo.img_src} />
+      <Paragraph fill alignSelf="center" textAlign="center" color="grey1">
+        Photo taken by {photo.rover.name} with the {photo.camera.full_name} on
+        approximately {photo.earth_date}.
+      </Paragraph>
+    </Layer>
   );
 };
 
