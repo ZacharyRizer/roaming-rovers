@@ -15,3 +15,26 @@ body {
   font-weight: 700;
   text-shadow: 0.15px 0.15px;
 }
+.photo-cards:hover {
+  box-shadow: 0px 0px 10px 5px #8f755c;
+}
+
+::-webkit-datetime-edit-text {
+  color: #40152a;
+  padding: 0 0.3em;
+}
+::-webkit-datetime-edit-month-field {
+  color: #40152a;
+}
+::-webkit-datetime-edit-day-field {
+  color: #40152a;
+}
+::-webkit-datetime-edit-year-field {
+  color: #40152a;
+}
+::-webkit-inner-spin-button {
+  display: none;
+}
+::-webkit-calendar-picker-indicator {
+  color: #40152a;
+}

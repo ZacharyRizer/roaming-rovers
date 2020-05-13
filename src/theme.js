@@ -9,6 +9,7 @@ const theme = {
       grey1: '#eeeeee',
       grey2: 'rgba(255, 230, 220, 0.2)',
       text: 'color1',
+      brand: 'color4',
     },
     focus: {
       border: {
@@ -26,9 +27,11 @@ const theme = {
       radius: '6px',
     },
   },
-  carousel: {
-    icons: {
-      color: 'color1',
+  radioButton: {
+    hover: {
+      border: {
+        color: 'color2',
+      },
     },
   },
 };

@@ -72,30 +72,31 @@ const SearchBar = ({ rover }) => {
   };
 
   return (
-    <Box margin="medium">
+    <Box margin={{ top: 'medium', horizontal: 'medium' }}>
       <Box direction="row">
         <Box margin="small" width="20rem">
           <Form
             onSubmit={({ value }) => {
               loadPhotosByDate(value);
             }}>
-            <FormField name="date" htmlfor="text-input-id" label="Date">
-              <TextInput
-                id="text-input-id"
-                name="date"
-                placeholder="yyyy-mm-dd"
-              />
+            <FormField name="date" htmlfor="text-input-id">
+              <TextInput id="text-input-id" type="date" name="date" />
             </FormField>
             <Box direction="row" gap="medium">
-              <Button type="submit" color="color1" label="Submit" />
+              <Button type="submit" color="color4" label="Submit" />
             </Box>
           </Form>
         </Box>
-        <Box fill margin="small" direction="row" align="center" justify="start">
+        <Box
+          fill="horizontal"
+          margin="small"
+          direction="row"
+          align="center"
+          justify="start">
           {cameras.map((camera) => {
             return (
-              <Box margin="medium">
-                <RadioButton checked={true} label={camera} />
+              <Box margin="small" key={camera}>
+                <RadioButton name={camera} label={camera} />
               </Box>
             );
           })}
@@ -122,10 +123,11 @@ const SearchBar = ({ rover }) => {
           return (
             <NavLink key={photo.id} to={`/photo/${photo.id}`}>
               <Box
+                className="photo-cards"
                 height="19rem"
                 width="19rem"
-                elevation="large"
-                round="medium"
+                elevation="small"
+                round="small"
                 margin="small"
                 background={`url(${photo.img_src})`}
               />
