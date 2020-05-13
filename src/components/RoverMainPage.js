@@ -16,7 +16,7 @@ import SearchBar from './SearchBar.js';
 const RoverMainPage = (props) => {
   const currentRover = props.match.params.rover;
   return (
-    <Box fill>
+    <Box width="80%">
       <Switch>
         <Route
           path={`/Curiosity/rover-details`}

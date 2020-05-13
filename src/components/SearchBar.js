@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {
   Box,
   Button,
-  CheckBox,
   Form,
   FormField,
   Paragraph,
+  RadioButton,
   TextInput,
 } from 'grommet';
 import { NavLink } from 'react-router-dom';
@@ -72,7 +72,7 @@ const SearchBar = ({ rover }) => {
   };
 
   return (
-    <Box fill margin="medium">
+    <Box margin="medium">
       <Box direction="row">
         <Box margin="small" width="20rem">
           <Form
@@ -91,14 +91,18 @@ const SearchBar = ({ rover }) => {
             </Box>
           </Form>
         </Box>
-        <Box margin="small" direction="row">
+        <Box fill margin="small" direction="row" align="center" justify="start">
           {cameras.map((camera) => {
-            return <CheckBox key={camera} checked={true} label={camera} />;
+            return (
+              <Box margin="medium">
+                <RadioButton checked={true} label={camera} />
+              </Box>
+            );
           })}
         </Box>
       </Box>
       {firstLoad ? (
-        <Box fill="horizontal" margin="small">
+        <Box margin="small">
           <Paragraph fill={true} color="color4" size="large">
             These are the latest photos from {rover}! Filter these images by
             camera or enter another date to see more of {rover}'s expedition!
@@ -106,7 +110,7 @@ const SearchBar = ({ rover }) => {
         </Box>
       ) : null}
       {!photosAvailable ? (
-        <Box fill="horizontal">
+        <Box margin="small">
           <Paragraph fill={true} margin="small" color="color4" size="large">
             {rover} had other work to do this day, there are no photos
             available. Please select another date.

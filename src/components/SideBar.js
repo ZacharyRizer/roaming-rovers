@@ -7,7 +7,7 @@ const SideBar = (props) => {
   const currentRover = props.match.params.rover;
   return (
     <Box
-      width="20rem"
+      width="20%"
       background="grey2"
       elevation="large"
       align="center"
