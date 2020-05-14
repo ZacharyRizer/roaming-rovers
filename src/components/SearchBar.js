@@ -1,31 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Box, Button, Form, FormField, TextInput } from 'grommet';
 import PhotoPopUp from './SearchBarPieces/PhotoPopUp';
 import CameraList from './SearchBarPieces/CameraList';
 import PhotoCards from './SearchBarPieces/PhotoCards';
 import SearchMessages from './SearchBarPieces/SearchMessages';
 import { apiBaseUrl } from '../config';
-
-// reducer function
-// initial state
+import {
+  setDateRange,
+  setSelectedDate,
+  setPhotos,
+  setCameras,
+  setSelectedCamera,
+} from '../store/photos';
 
 const SearchBar = ({ rover }) => {
+  const dateRange = useSelector((state) => state[rover].dateRange);
+  const selectedDate = useSelector((state) => state[rover].selectedDate);
+  const photos = useSelector((state) => state[rover].photos);
+  const cameras = useSelector((state) => state[rover].cameras);
+  const selectedCamera = useSelector((state) => state[rover].selectedCamera);
+
+  const dispatch = useDispatch();
+
   const [photoPopUp, setPhotoPopUp] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState({});
-  const [isLoading, setIsLoaing] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [photosAvailable, setPhotosAvailable] = useState(true);
 
-  // useReducer(reducer, initialState)
-  const [date, setDate] = useState('');
   const [firstLoad, setFirstLoad] = useState(true);
-  const [photos, setPhotos] = useState([]);
-  const [cameras, setCameras] = useState([]);
 
   useEffect(() => {
-    loadLatestPhotos();
+    if (dateRange.length === 0) {
+      getDateRange();
+      loadPhotos();
+    }
   }, [rover]);
 
-  const setCameraList = (incomingPhotos) => {
+  const createCameraList = (incomingPhotos) => {
     const usedCameras = [];
     incomingPhotos.forEach((photo) => {
       const currentCamera = photo.camera.full_name;
@@ -33,46 +45,44 @@ const SearchBar = ({ rover }) => {
         usedCameras.push(currentCamera);
       }
     });
-    setCameras(usedCameras);
+    dispatch(setCameras(usedCameras, rover));
   };
 
-  const loadLatestPhotos = async () => {
+  const getDateRange = async () => {
     try {
-      const res = await fetch(`${apiBaseUrl}rovers/${rover}/latest_photos`);
+      const res = await fetch(`${apiBaseUrl}manifests/${rover}`);
       if (!res.ok) {
         throw res;
       }
-      const incomingPhotos = await res.json();
-      setCameraList(incomingPhotos.latest_photos);
-      setPhotos(incomingPhotos.latest_photos);
-      setIsLoaing(false);
+      const manifestObj = await res.json();
+      const manifest = manifestObj.photo_manifest;
+      dispatch(setDateRange(manifest.landing_date, manifest.max_date, rover));
     } catch (e) {
       console.error(e);
     }
   };
 
-  const loadPhotosByDate = async (date) => {
+  const loadPhotos = async () => {
     try {
-      setIsLoaing(true);
-      setFirstLoad(false);
-      setPhotos([]);
-      setCameras([]);
+      setIsLoading(true);
+      dispatch(setPhotos([], rover));
+      dispatch(setCameras([], rover));
       const res = await fetch(
-        `${apiBaseUrl}rovers/${rover}/photos?earth_date=${date.date}`
+        `${apiBaseUrl}rovers/${rover}/photos?earth_date=${selectedDate}`
       );
       if (!res.ok) {
         throw res;
       }
       const incomingPhotos = await res.json();
       if (incomingPhotos.photos.length === 0) {
-        setIsLoaing(false);
+        setIsLoading(false);
         setPhotosAvailable(false);
         return;
       } else {
         setPhotosAvailable(true);
-        setCameraList(incomingPhotos.photos);
-        setPhotos(incomingPhotos.photos);
-        setIsLoaing(false);
+        createCameraList(incomingPhotos.photos);
+        dispatch(setPhotos(incomingPhotos.photos, rover));
+        setIsLoading(false);
       }
     } catch (e) {
       console.error(e);
@@ -91,17 +101,16 @@ const SearchBar = ({ rover }) => {
       )}
       <Box direction="row">
         <Box margin="small" width="20rem">
-          <Form
-            onSubmit={({ value }) => {
-              loadPhotosByDate(value);
-            }}>
+          <Form onSubmit={loadPhotos}>
             <FormField name="date" htmlfor="text-input-id">
               <TextInput
                 id="text-input-id"
                 type="date"
                 name="date"
-                value={date}
-                onChange={(e) => setDate(e.currentTarget.value)}
+                value={selectedDate}
+                onChange={(e) =>
+                  dispatch(setSelectedDate(e.currentTarget.value, rover))
+                }
               />
             </FormField>
             <Box direction="row" gap="medium">
