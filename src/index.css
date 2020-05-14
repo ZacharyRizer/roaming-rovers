@@ -11,9 +11,8 @@ body {
   text-decoration: none;
 }
 .active {
-  color: #ff5435;
+  color: #ff1717;
   font-weight: 700;
-  text-shadow: 0.15px 0.15px;
 }
 .photo-cards:hover {
   box-shadow: 0px 0px 8px 5px #c7b6a6;

@@ -9,6 +9,7 @@
     "grommet": "^2.13.0",
     "grommet-controls": "^2.0.4",
     "grommet-icons": "^4.4.0",
+    "moment": "^2.25.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",

@@ -1,25 +1,15 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Box, Heading, Paragraph } from 'grommet';
 import { Spinning } from 'grommet-controls';
 
-const SearchMessages = ({ isLoading, photosAvailable, rover }) => {
+const SearchMessages = ({ photos, rover }) => {
   const startDate = useSelector((state) => state[rover].startDate);
   const selectedDate = useSelector((state) => state[rover].selectedDate);
+  const isLoading = useSelector((state) => state[rover].isLoading);
+
   return (
     <Box margin="small">
-      {startDate === selectedDate && !isLoading ? (
-        <Paragraph fill={true} color="color4" size="large">
-          These are the first photos {rover} sent back! Filter these images by
-          camera or enter another date to see more of {rover}'s expedition!
-        </Paragraph>
-      ) : null}
-      {!photosAvailable ? (
-        <Paragraph fill={true} margin="small" color="color4" size="large">
-          {rover} had other work to do this day, there are no photos available.
-          Please select another date.
-        </Paragraph>
-      ) : null}
       {isLoading ? (
         <Box fill direction="column" align="center" justify="start">
           <Box height="10rem" />
@@ -28,6 +18,18 @@ const SearchMessages = ({ isLoading, photosAvailable, rover }) => {
             Loading Images
           </Heading>
         </Box>
+      ) : null}
+      {startDate === selectedDate && !isLoading ? (
+        <Paragraph fill={true} color="color4" size="large">
+          These are the first photos {rover} sent back! Filter these images by
+          camera or enter another date to see more of {rover}'s expedition!
+        </Paragraph>
+      ) : null}
+      {photos.length === 0 && !isLoading ? (
+        <Paragraph fill={true} margin="small" color="color4" size="large">
+          {rover} had other work to do this day, there are no photos available.
+          Please select another date.
+        </Paragraph>
       ) : null}
     </Box>
   );

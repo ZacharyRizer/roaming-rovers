@@ -1,7 +1,7 @@
 const theme = {
   global: {
     colors: {
-      color1: '#ff5435',
+      color1: '#ff1717',
       color2: '#cc1e2c',
       color3: '#741630',
       color4: '#40152a',
@@ -27,6 +27,11 @@ const theme = {
       radius: '6px',
     },
   },
+  carousel: {
+    icons: {
+      color: 'color1',
+    },
+  },
   layer: {
     overlay: {
       background: 'rgba(0, 0, 0, 0.7)',
@@ -36,7 +41,7 @@ const theme = {
   radioButton: {
     hover: {
       border: {
-        color: 'color2',
+        color: 'color1',
       },
     },
   },

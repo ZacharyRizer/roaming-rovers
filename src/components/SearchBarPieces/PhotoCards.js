@@ -1,10 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Box } from 'grommet';
 
-const PhotoCards = ({ photos, handleCardClick }) => {
+const PhotoCards = ({ handleCardClick, photos, rover }) => {
+  const selectedCamera = useSelector((state) => state[rover].selectedCamera);
   const photoCards = [];
-  while (photoCards.length < 52 && photoCards.length < photos.length) {
-    const photo = photos[photoCards.length];
+  let photosToDisplay = [...photos];
+
+  if (selectedCamera !== '') {
+    photosToDisplay = photosToDisplay.filter(
+      (photo) => photo.camera.full_name === selectedCamera
+    );
+  }
+
+  while (photoCards.length < 50 && photoCards.length < photosToDisplay.length) {
+    const photo = photosToDisplay[photoCards.length];
     photoCards.push(
       <Box
         className="photo-cards"
@@ -19,6 +29,7 @@ const PhotoCards = ({ photos, handleCardClick }) => {
       />
     );
   }
+
   return (
     <Box flex direction="row" overflow="auto" wrap={true}>
       {photoCards}

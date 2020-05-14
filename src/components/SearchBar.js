@@ -10,23 +10,21 @@ import {
   setMaxDate,
   setSelectedDate,
   setPhotos,
+  setIsLoading,
   setCameras,
   setSelectedCamera,
-} from '../store/photos';
+} from '../store/actionsReducer';
 
 const SearchBar = ({ rover }) => {
   const maxDate = useSelector((state) => state[rover].maxDate);
   const selectedDate = useSelector((state) => state[rover].selectedDate);
   const photos = useSelector((state) => state[rover].photos);
   const cameras = useSelector((state) => state[rover].cameras);
-  const selectedCamera = useSelector((state) => state[rover].selectedCamera);
 
   const dispatch = useDispatch();
 
   const [photoPopUp, setPhotoPopUp] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [photosAvailable, setPhotosAvailable] = useState(true);
 
   useEffect(() => {
     if (!maxDate) {
@@ -61,25 +59,27 @@ const SearchBar = ({ rover }) => {
 
   const loadPhotos = async () => {
     try {
-      setIsLoading(true);
+      dispatch(setIsLoading(true, rover));
       dispatch(setPhotos([], rover));
       dispatch(setCameras([], rover));
+      dispatch(setSelectedCamera('', rover));
       const res = await fetch(
         `${apiBaseUrl}rovers/${rover}/photos?earth_date=${selectedDate}`
       );
+
       if (!res.ok) {
         throw res;
       }
+
       const incomingPhotos = await res.json();
+
       if (incomingPhotos.photos.length === 0) {
-        setIsLoading(false);
-        setPhotosAvailable(false);
+        dispatch(setIsLoading(false, rover));
         return;
       } else {
-        setPhotosAvailable(true);
         createCameraList(incomingPhotos.photos);
         dispatch(setPhotos(incomingPhotos.photos, rover));
-        setIsLoading(false);
+        dispatch(setIsLoading(false, rover));
       }
     } catch (e) {
       console.error(e);
@@ -120,14 +120,16 @@ const SearchBar = ({ rover }) => {
             </Box>
           </Form>
         </Box>
-        <CameraList cameras={cameras} />
+        {cameras.length === 0 ? null : (
+          <CameraList rover={rover} cameras={cameras} />
+        )}
       </Box>
-      <SearchMessages
+      <SearchMessages rover={rover} photos={photos} />
+      <PhotoCards
         rover={rover}
-        isLoading={isLoading}
-        photosAvailable={photosAvailable}
+        photos={photos}
+        handleCardClick={handleCardClick}
       />
-      <PhotoCards photos={photos} handleCardClick={handleCardClick} />
     </Box>
   );
 };
