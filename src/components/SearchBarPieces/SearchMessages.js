@@ -1,13 +1,16 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Box, Heading, Paragraph } from 'grommet';
 import { Spinning } from 'grommet-controls';
 
-const SearchMessages = ({ firstLoad, isLoading, photosAvailable, rover }) => {
+const SearchMessages = ({ isLoading, photosAvailable, rover }) => {
+  const startDate = useSelector((state) => state[rover].startDate);
+  const selectedDate = useSelector((state) => state[rover].selectedDate);
   return (
     <Box margin="small">
-      {firstLoad && !isLoading ? (
+      {startDate === selectedDate && !isLoading ? (
         <Paragraph fill={true} color="color4" size="large">
-          These are the latest photos from {rover}! Filter these images by
+          These are the first photos {rover} sent back! Filter these images by
           camera or enter another date to see more of {rover}'s expedition!
         </Paragraph>
       ) : null}

@@ -1,21 +1,24 @@
 // initial state
 const intialState = {
   Curiosity: {
-    dateRange: [],
+    startDate: '2012-08-06',
+    maxDate: '',
     selectedDate: '2012-08-06',
     photos: [],
     cameras: [],
     selectedCamera: '',
   },
   Opportunity: {
-    dateRange: [],
+    startDate: '2004-01-26',
+    maxDate: '',
     selectedDate: '2004-01-26',
     photos: [],
     cameras: [],
     selectedCamera: '',
   },
   Spirit: {
-    dateRange: [],
+    startDate: '2004-01-05',
+    maxDate: '',
     selectedDate: '2004-01-05',
     photos: [],
     cameras: [],
@@ -24,16 +27,15 @@ const intialState = {
 };
 
 // Actions
-const SET_DATE_RANGE = 'rover/SET_DATE_RANGE';
+const SET_MAX_DATE = 'rover/SET_MAX_DATE';
 const SET_SELECTED_DATE = 'rover/SET_SELECTED_DATE';
 const SET_PHOTOS = 'rover/SET_PHOTOS';
 const SET_CAMERAS = 'rover/SET_CAMERAS';
 const SET_SELECTED_CAMERA = 'rover/SET_SELECTED_CAMERA';
 
-export const setDateRange = (landingDate, maxDate, rover) => {
+export const setMaxDate = (maxDate, rover) => {
   return {
-    type: SET_DATE_RANGE,
-    landingDate,
+    type: SET_MAX_DATE,
     maxDate,
     rover,
   };
@@ -75,8 +77,8 @@ export const setSelectedCamera = (selectedCamera, rover) => {
 export default function reducer(state = intialState, action) {
   let newState = { ...state };
   switch (action.type) {
-    case SET_DATE_RANGE: {
-      newState[action.rover].dateRange = [action.landingDate, action.maxDate];
+    case SET_MAX_DATE: {
+      newState[action.rover].maxDate = action.maxDate;
       return newState;
     }
     case SET_SELECTED_DATE: {

@@ -7,7 +7,7 @@ import PhotoCards from './SearchBarPieces/PhotoCards';
 import SearchMessages from './SearchBarPieces/SearchMessages';
 import { apiBaseUrl } from '../config';
 import {
-  setDateRange,
+  setMaxDate,
   setSelectedDate,
   setPhotos,
   setCameras,
@@ -15,7 +15,7 @@ import {
 } from '../store/photos';
 
 const SearchBar = ({ rover }) => {
-  const dateRange = useSelector((state) => state[rover].dateRange);
+  const maxDate = useSelector((state) => state[rover].maxDate);
   const selectedDate = useSelector((state) => state[rover].selectedDate);
   const photos = useSelector((state) => state[rover].photos);
   const cameras = useSelector((state) => state[rover].cameras);
@@ -28,11 +28,9 @@ const SearchBar = ({ rover }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [photosAvailable, setPhotosAvailable] = useState(true);
 
-  const [firstLoad, setFirstLoad] = useState(true);
-
   useEffect(() => {
-    if (dateRange.length === 0) {
-      getDateRange();
+    if (!maxDate) {
+      getMaxDate();
       loadPhotos();
     }
   }, [rover]);
@@ -48,15 +46,14 @@ const SearchBar = ({ rover }) => {
     dispatch(setCameras(usedCameras, rover));
   };
 
-  const getDateRange = async () => {
+  const getMaxDate = async () => {
     try {
       const res = await fetch(`${apiBaseUrl}manifests/${rover}`);
       if (!res.ok) {
         throw res;
       }
-      const manifestObj = await res.json();
-      const manifest = manifestObj.photo_manifest;
-      dispatch(setDateRange(manifest.landing_date, manifest.max_date, rover));
+      const manifest = await res.json();
+      dispatch(setMaxDate(manifest.photo_manifest.max_date, rover));
     } catch (e) {
       console.error(e);
     }
@@ -127,7 +124,6 @@ const SearchBar = ({ rover }) => {
       </Box>
       <SearchMessages
         rover={rover}
-        firstLoad={firstLoad}
         isLoading={isLoading}
         photosAvailable={photosAvailable}
       />

@@ -22,14 +22,14 @@ const NavBar = (props) => {
         </Button>
       </Link>
       <Box direction="row">
-        <Link to="/Curiosity/image-search">
-          <Button color="color1" label="Curiosity" margin="5px" />
+        <Link to="/Opportunity/image-search">
+          <Button color="color1" label="Opportunity" margin="5px" />
         </Link>
         <Link to="/Spirit/image-search">
           <Button color="color1" label="Spirit" margin="5px" />
         </Link>
-        <Link to="/Opportunity/image-search">
-          <Button color="color1" label="Opportunity" margin="5px" />
+        <Link to="/Curiosity/image-search">
+          <Button color="color1" label="Curiosity" margin="5px" />
         </Link>
       </Box>
     </Box>
