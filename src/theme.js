@@ -10,11 +10,7 @@ const theme = {
       grey2: 'rgba(255, 230, 220, 0.2)',
       text: 'color1',
       brand: 'color4',
-    },
-    focus: {
-      border: {
-        color: 'color1',
-      },
+      focus: 'color1',
     },
     font: {
       family: 'Roboto',

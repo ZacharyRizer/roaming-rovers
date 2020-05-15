@@ -7,19 +7,23 @@ import PhotoCards from './SearchBarPieces/PhotoCards';
 import SearchMessages from './SearchBarPieces/SearchMessages';
 import { apiBaseUrl } from '../config';
 import {
-  setMaxDate,
   setSelectedDate,
+  setSelectedSol,
   setPhotos,
   setIsLoading,
   setCameras,
   setSelectedCamera,
+  getMaxDate,
+  setPageNum,
 } from '../store/actionsReducer';
 
 const SearchBar = ({ rover }) => {
+  const startDate = useSelector((state) => state[rover].startDate);
   const maxDate = useSelector((state) => state[rover].maxDate);
   const selectedDate = useSelector((state) => state[rover].selectedDate);
+  const selectedSol = useSelector((state) => state[rover].selectedSol);
+  const selectedCamera = useSelector((state) => state[rover].selectedCamera);
   const photos = useSelector((state) => state[rover].photos);
-  const cameras = useSelector((state) => state[rover].cameras);
 
   const dispatch = useDispatch();
 
@@ -27,45 +31,26 @@ const SearchBar = ({ rover }) => {
   const [selectedPhoto, setSelectedPhoto] = useState({});
 
   useEffect(() => {
-    if (!maxDate) {
-      getMaxDate();
-      loadPhotos();
+    if (!selectedCamera) {
+      const url = `${apiBaseUrl}rovers/${rover}/photos?earth_date=${selectedDate}&page=0`;
+      loadPhotos(url);
+      dispatch(getMaxDate(rover));
     }
-  }, [rover]);
+  }, [rover, selectedCamera]);
 
-  const createCameraList = (incomingPhotos) => {
-    const usedCameras = [];
-    incomingPhotos.forEach((photo) => {
-      const currentCamera = photo.camera.full_name;
-      if (!usedCameras.includes(currentCamera)) {
-        usedCameras.push(currentCamera);
-      }
-    });
-    dispatch(setCameras(usedCameras, rover));
-  };
-
-  const getMaxDate = async () => {
-    try {
-      const res = await fetch(`${apiBaseUrl}manifests/${rover}`);
-      if (!res.ok) {
-        throw res;
-      }
-      const manifest = await res.json();
-      dispatch(setMaxDate(manifest.photo_manifest.max_date, rover));
-    } catch (e) {
-      console.error(e);
+  useEffect(() => {
+    if (selectedCamera) {
+      const url = `${apiBaseUrl}rovers/${rover}/photos?earth_date=${selectedDate}&camera=${selectedCamera}&page=0`;
+      loadPhotos(url);
     }
-  };
+  }, [selectedCamera]);
 
-  const loadPhotos = async () => {
+  const loadPhotos = async (url) => {
     try {
+      dispatch(setPageNum(1, rover));
       dispatch(setIsLoading(true, rover));
       dispatch(setPhotos([], rover));
-      dispatch(setCameras([], rover));
-      dispatch(setSelectedCamera('', rover));
-      const res = await fetch(
-        `${apiBaseUrl}rovers/${rover}/photos?earth_date=${selectedDate}`
-      );
+      const res = await fetch(url);
 
       if (!res.ok) {
         throw res;
@@ -75,15 +60,24 @@ const SearchBar = ({ rover }) => {
 
       if (incomingPhotos.photos.length === 0) {
         dispatch(setIsLoading(false, rover));
+        dispatch(setSelectedSol('', rover));
+        dispatch(setCameras([], rover));
         return;
       } else {
-        createCameraList(incomingPhotos.photos);
+        dispatch(setSelectedSol(incomingPhotos.photos[0].sol, rover));
         dispatch(setPhotos(incomingPhotos.photos, rover));
         dispatch(setIsLoading(false, rover));
       }
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleFormSubmission = () => {
+    dispatch(setCameras([], rover));
+    dispatch(setSelectedCamera('', rover));
+    const url = `${apiBaseUrl}rovers/${rover}/photos?earth_date=${selectedDate}&page=0`;
+    loadPhotos(url);
   };
 
   const handleCardClick = (photo) => {
@@ -98,11 +92,13 @@ const SearchBar = ({ rover }) => {
       )}
       <Box direction="row">
         <Box margin="small" width="20rem">
-          <Form onSubmit={loadPhotos}>
+          <Form onSubmit={handleFormSubmission}>
             <FormField name="date" htmlfor="text-input-id">
               <TextInput
                 id="text-input-id"
                 type="date"
+                min={startDate}
+                max={maxDate}
                 name="date"
                 value={selectedDate}
                 onChange={(e) =>
@@ -120,14 +116,14 @@ const SearchBar = ({ rover }) => {
             </Box>
           </Form>
         </Box>
-        {cameras.length === 0 ? null : (
-          <CameraList rover={rover} cameras={cameras} />
-        )}
+        <CameraList rover={rover} selectedSol={selectedSol} />
       </Box>
       <SearchMessages rover={rover} photos={photos} />
       <PhotoCards
         rover={rover}
         photos={photos}
+        selectedCamera={selectedCamera}
+        selectedDate={selectedDate}
         handleCardClick={handleCardClick}
       />
     </Box>
