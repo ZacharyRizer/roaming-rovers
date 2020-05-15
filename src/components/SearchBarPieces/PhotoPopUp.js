@@ -4,8 +4,6 @@ import moment from 'moment';
 
 const PhotoPopUp = ({ photo, setPhotoPopUp }) => {
   const formatedDate = moment(photo.earth_date).format('MMMM Do YYYY');
-  console.log(formatedDate);
-
   return (
     <Layer
       animation="fadeIn"
