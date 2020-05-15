@@ -9,7 +9,7 @@ import OpportunityMissionDetails from './Opportunity/OpportunityMissionDetails.j
 import SpiritRoverDetails from './Spirit/SpiritRoverDetails.js';
 import SpiritMissionDetails from './Spirit/SpiritMissionDetails.js';
 import IconicShots from './IconicShots.js';
-import SearchBar from './SearchBar.js';
+import SearchAndImages from './SearchAndImages.js';
 
 const RoverMainPage = (props) => {
   const currentRover = props.match.params.rover;
@@ -43,7 +43,9 @@ const RoverMainPage = (props) => {
         />
         <Route
           path={`/${currentRover}/image-search`}
-          render={(props) => <SearchBar {...props} rover={currentRover} />}
+          render={(props) => (
+            <SearchAndImages {...props} rover={currentRover} />
+          )}
         />
       </Switch>
     </Box>

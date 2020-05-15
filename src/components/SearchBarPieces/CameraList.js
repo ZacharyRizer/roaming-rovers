@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, RadioButton } from 'grommet';
+import { Box, Grid, RadioButton, Text } from 'grommet';
 import { apiBaseUrl } from '../../config';
 import { setSelectedCamera, setCameras } from '../../store/actionsReducer';
 
@@ -43,40 +43,42 @@ const CameraList = ({ selectedSol, rover }) => {
   };
 
   return (
-    <Box
-      fill="horizontal"
-      margin="small"
-      direction="row"
-      align="center"
-      justify="start"
-      wrap={true}>
+    <Grid
+      fill={true}
+      rows={['1/2', '1/2']}
+      columns={['1/4', '1/4', '1/4', '1/4']}
+      align="center">
       {cameras.length !== 0 ? (
-        <Box margin="small">
+        <Box direction="row" margin={{ horizontal: 'small' }}>
           <RadioButton
             checked={selectedCamera === ''}
             name="select all"
             id="all"
-            label="Show All Photos"
             onChange={(e) => dispatch(setSelectedCamera('', rover))}
           />
+          <Text margin="small" color="color4">
+            Show All Photos
+          </Text>
         </Box>
       ) : null}
       {cameras.map((camera) => {
         return (
-          <Box margin="small" key={camera}>
+          <Box key={camera} direction="row" margin={{ horizontal: 'small' }}>
             <RadioButton
               checked={selectedCamera === camera}
               name={masterCameraList[camera]}
               id={camera}
-              label={masterCameraList[camera]}
               onChange={(e) =>
                 dispatch(setSelectedCamera(e.currentTarget.id, rover))
               }
             />
+            <Text margin="small" color="color4">
+              {masterCameraList[camera]}
+            </Text>
           </Box>
         );
       })}
-    </Box>
+    </Grid>
   );
 };
 

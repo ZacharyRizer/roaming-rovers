@@ -14,10 +14,9 @@ import {
   setCameras,
   setSelectedCamera,
   getMaxDate,
-  setPageNum,
 } from '../store/actionsReducer';
 
-const SearchBar = ({ rover }) => {
+const SearchAndImages = ({ rover }) => {
   const startDate = useSelector((state) => state[rover].startDate);
   const maxDate = useSelector((state) => state[rover].maxDate);
   const selectedDate = useSelector((state) => state[rover].selectedDate);
@@ -47,7 +46,6 @@ const SearchBar = ({ rover }) => {
 
   const loadPhotos = async (url) => {
     try {
-      dispatch(setPageNum(1, rover));
       dispatch(setIsLoading(true, rover));
       dispatch(setPhotos([], rover));
       const res = await fetch(url);
@@ -119,15 +117,9 @@ const SearchBar = ({ rover }) => {
         <CameraList rover={rover} selectedSol={selectedSol} />
       </Box>
       <SearchMessages rover={rover} photos={photos} />
-      <PhotoCards
-        rover={rover}
-        photos={photos}
-        selectedCamera={selectedCamera}
-        selectedDate={selectedDate}
-        handleCardClick={handleCardClick}
-      />
+      <PhotoCards rover={rover} handleCardClick={handleCardClick} />
     </Box>
   );
 };
 
-export default SearchBar;
+export default SearchAndImages;

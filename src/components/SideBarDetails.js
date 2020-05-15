@@ -12,7 +12,7 @@ const SideBarDetails = ({ rover }) => {
         height="small"
         width="small"
         elevation="large"
-        round="small"
+        round="xsmall"
         margin="medium"
         background={`url(/images/${rover}Profile.jpg)`}
       />

@@ -3,21 +3,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Box } from 'grommet';
 import { apiBaseUrl } from '../../config';
-import { addPhotos, setPageNum } from '../../store/actionsReducer';
+import { addPhotos } from '../../store/actionsReducer';
 
 const PhotoCards = ({ handleCardClick, rover }) => {
+  const [pageNum, setPageNum] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const photos = useSelector((state) => state[rover].photos);
-  const pageNum = useSelector((state) => state[rover].pageNum);
   const selectedCamera = useSelector((state) => state[rover].selectedCamera);
   const selectedDate = useSelector((state) => state[rover].selectedDate);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (pageNum === 1) {
-      setHasMore(true);
-    }
-  }, [pageNum]);
+    setPageNum(1);
+    setHasMore(true);
+  }, [rover, selectedCamera]);
 
   const loadMorePhotos = async () => {
     try {
@@ -35,7 +34,7 @@ const PhotoCards = ({ handleCardClick, rover }) => {
       }
 
       const incomingPhotos = await res.json();
-      dispatch(setPageNum(pageNum + 1, rover));
+      setPageNum(pageNum + 1);
 
       if (incomingPhotos.photos.length === 0) {
         setHasMore(false);

@@ -11,7 +11,6 @@ const intialState = {
     isLoading: true,
     cameras: [],
     selectedCamera: '',
-    pageNum: 1,
   },
   Opportunity: {
     startDate: '2004-01-26',
@@ -22,7 +21,6 @@ const intialState = {
     isLoading: true,
     cameras: [],
     selectedCamera: '',
-    pageNum: 1,
   },
   Spirit: {
     startDate: '2004-01-05',
@@ -33,7 +31,6 @@ const intialState = {
     isLoading: true,
     cameras: [],
     selectedCamera: '',
-    pageNum: 1,
   },
 };
 
@@ -46,7 +43,6 @@ const ADD_PHOTOS = 'rover/ADD_PHOTOS';
 const SET_IS_LOADING = 'rover/SET_IS_LOADING';
 const SET_CAMERAS = 'rover/SET_CAMERAS';
 const SET_SELECTED_CAMERA = 'rover/SET_SELECTED_CAMERA';
-const SET_PAGE_NUM = 'rover/SET_PAGE_NUM';
 
 export const setMaxDate = (maxDate, rover) => {
   return {
@@ -112,14 +108,6 @@ export const setSelectedCamera = (selectedCamera, rover) => {
   };
 };
 
-export const setPageNum = (num, rover) => {
-  return {
-    type: SET_PAGE_NUM,
-    num,
-    rover,
-  };
-};
-
 // Reducer
 export default function reducer(state = intialState, action) {
   let newState = merge({}, state);
@@ -154,10 +142,6 @@ export default function reducer(state = intialState, action) {
     }
     case SET_SELECTED_CAMERA: {
       newState[action.rover].selectedCamera = action.selectedCamera;
-      return newState;
-    }
-    case SET_PAGE_NUM: {
-      newState[action.rover].pageNum = action.num;
       return newState;
     }
     default: {
