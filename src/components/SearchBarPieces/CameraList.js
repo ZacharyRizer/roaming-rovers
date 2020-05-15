@@ -5,7 +5,7 @@ import { Spinning } from 'grommet-controls';
 import { apiBaseUrl } from '../../config';
 import { setSelectedCamera, setCameras } from '../../store/actionsReducer';
 
-const CameraList = ({ selectedSol, rover }) => {
+const CameraList = ({ photos, selectedSol, rover }) => {
   const masterCameraList = {
     FHAZ: 'Front Hazard Avoidance Camera',
     NAVCAM: 'Navigation Camera',
@@ -25,7 +25,7 @@ const CameraList = ({ selectedSol, rover }) => {
 
   useEffect(() => {
     createCameraList();
-  }, [selectedSol]);
+  }, [photos]);
 
   const createCameraList = async () => {
     try {

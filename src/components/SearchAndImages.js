@@ -114,7 +114,7 @@ const SearchAndImages = ({ rover }) => {
             </Box>
           </Form>
         </Box>
-        <CameraList rover={rover} selectedSol={selectedSol} />
+        <CameraList rover={rover} photos={photos} selectedSol={selectedSol} />
       </Box>
       <SearchMessages rover={rover} photos={photos} />
       <PhotoCards rover={rover} handleCardClick={handleCardClick} />

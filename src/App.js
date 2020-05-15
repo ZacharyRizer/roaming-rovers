@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { Grommet, Box } from 'grommet';
+import { Box, Grommet } from 'grommet';
 import theme from './theme';
 
 import NavBar from './components/NavBar';
