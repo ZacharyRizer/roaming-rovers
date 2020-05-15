@@ -2,12 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Box } from 'grommet';
 
-import CuriosityRoverDetails from './Curiosity/CuriosityRoverDetails.js';
-import CuriosityMissionDetails from './Curiosity/CuriosityMissionDetails.js';
-import OpportunityRoverDetails from './Opportunity/OpportunityRoverDetails.js';
-import OpportunityMissionDetails from './Opportunity/OpportunityMissionDetails.js';
-import SpiritRoverDetails from './Spirit/SpiritRoverDetails.js';
-import SpiritMissionDetails from './Spirit/SpiritMissionDetails.js';
+import CuriosityRoverDetails from './CuriosityRoverDetails.js.js';
+import SpiritAndOpportunityDetails from './SpiritAndOpportunityDetails';
 import IconicShots from './IconicShots.js';
 import SearchAndImages from './SearchAndImages.js';
 
@@ -21,21 +17,12 @@ const RoverMainPage = (props) => {
           component={CuriosityRoverDetails}
         />
         <Route
-          path="/Curiosity/mission-details"
-          component={CuriosityMissionDetails}
-        />
-        <Route
           path={`/Opportunity/rover-details`}
-          component={OpportunityRoverDetails}
+          component={SpiritAndOpportunityDetails}
         />
         <Route
-          path="/Opportunity/mission-details"
-          component={OpportunityMissionDetails}
-        />
-        <Route path={`/Spirit/rover-details`} component={SpiritRoverDetails} />
-        <Route
-          path="/Spirit/mission-details"
-          component={SpiritMissionDetails}
+          path={`/Spirit/rover-details`}
+          component={SpiritAndOpportunityDetails}
         />
         <Route
           path={`/${currentRover}/iconic-shots`}

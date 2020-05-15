@@ -6,14 +6,15 @@ const SideBarDetails = ({ rover }) => {
   return (
     <Box fill direction="column" align="center" justify="start">
       <Heading level="3" margin="medium" color="color4">
-        Meet {rover}
+        {rover}
       </Heading>
       <Box
+        flex={false}
         height="small"
         width="small"
         elevation="large"
         round="xsmall"
-        margin="medium"
+        margin={{ horizontal: 'medium', top: 'small', bottom: 'medium' }}
         background={`url(/images/${rover}Profile.jpg)`}
       />
       <NavLink to={`/${rover}/image-search`} className="side-bar-navs">
@@ -23,12 +24,7 @@ const SideBarDetails = ({ rover }) => {
       </NavLink>
       <NavLink to={`/${rover}/rover-details`} className="side-bar-navs">
         <Heading level="4" margin="medium">
-          Rover Details
-        </Heading>
-      </NavLink>
-      <NavLink to={`/${rover}/mission-details`} className="side-bar-navs">
-        <Heading level="4" margin="medium">
-          Mission Details
+          Rover and Mission Details
         </Heading>
       </NavLink>
       <NavLink to={`/${rover}/iconic-shots`} className="side-bar-navs">

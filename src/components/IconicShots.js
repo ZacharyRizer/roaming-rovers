@@ -10,9 +10,10 @@ const IconicShots = ({ rover }) => {
       <Box
         height="large"
         width="large"
+        margin={{ bottom: 'medium', top: 'none' }}
         overflow="hidden"
         elevation="large"
-        round="small">
+        round="xsmall">
         <Carousel fill play={4000}>
           <Image fit="contain" src={`/images/${rover}/${rover}1.jpg`} />
           <Image fit="contain" src={`/images/${rover}/${rover}2.jpg`} />

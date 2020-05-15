@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Heading, Button } from 'grommet';
+import { Box, Heading, Image, Button } from 'grommet';
 
 const NavBar = (props) => {
   return (
@@ -16,9 +16,14 @@ const NavBar = (props) => {
       {...props}>
       <Link to="/">
         <Button>
-          <Heading level="3" margin="small" color="color1">
-            Roaming Rovers
-          </Heading>
+          <Box direction="row" align="center" justify="evenly">
+            <Box height="xxsmall" width="xxsmall" margin={{ left: 'small' }}>
+              <Image fit="cover" src="/images/mars.svg" />
+            </Box>
+            <Heading level="3" margin="small" color="color1">
+              Roaming Rovers
+            </Heading>
+          </Box>
         </Button>
       </Link>
       <Box direction="row">
