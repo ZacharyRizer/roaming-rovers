@@ -1,19 +1,24 @@
-import React from 'react';
-import { Box } from 'grommet';
+import React, { useContext } from 'react';
+import { Box, ResponsiveContext } from 'grommet';
 
 import SideBarDetails from './SideBarDetails';
 
 const SideBar = (props) => {
+  const size = useContext(ResponsiveContext); // media query
   const currentRover = props.match.params.rover;
   return (
-    <Box
-      width="20%"
-      background="grey2"
-      elevation="large"
-      align="center"
-      justify="start">
-      <SideBarDetails rover={currentRover} />
-    </Box>
+    <>
+      {size !== 'small' ? (
+        <Box
+          width="20%"
+          background="grey2"
+          elevation="large"
+          align="center"
+          justify="start">
+          <SideBarDetails rover={currentRover} />
+        </Box>
+      ) : null}
+    </>
   );
 };
 

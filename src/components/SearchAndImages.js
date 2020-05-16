@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, Button, Form, FormField, TextInput } from 'grommet';
+import {
+  Box,
+  Button,
+  Form,
+  FormField,
+  ResponsiveContext,
+  TextInput,
+} from 'grommet';
 import PhotoPopUp from './SearchBarPieces/PhotoPopUp';
 import CameraList from './SearchBarPieces/CameraList';
 import PhotoCards from './SearchBarPieces/PhotoCards';
@@ -17,6 +24,8 @@ import {
 } from '../store/actionsReducer';
 
 const SearchAndImages = ({ rover }) => {
+  const size = useContext(ResponsiveContext); // media query
+
   const startDate = useSelector((state) => state[rover].startDate);
   const maxDate = useSelector((state) => state[rover].maxDate);
   const selectedDate = useSelector((state) => state[rover].selectedDate);
@@ -84,41 +93,102 @@ const SearchAndImages = ({ rover }) => {
   };
 
   return (
-    <Box margin={{ top: 'medium', horizontal: 'medium' }}>
-      {photoPopUp && (
-        <PhotoPopUp photo={selectedPhoto} setPhotoPopUp={setPhotoPopUp} />
-      )}
-      <Box direction="row">
-        <Box margin="small" width="20rem">
-          <Form onSubmit={handleFormSubmission}>
-            <FormField name="date" htmlfor="text-input-id">
-              <TextInput
-                id="text-input-id"
-                type="date"
-                min={startDate}
-                max={maxDate}
-                name="date"
-                value={selectedDate}
-                onChange={(e) =>
-                  dispatch(setSelectedDate(e.currentTarget.value, rover))
-                }
-              />
-            </FormField>
-            <Box direction="row" gap="medium">
-              <Button
-                type="submit"
-                color="color4"
-                label="Find Photos"
-                margin={{ horizontal: '9px' }}
-              />
+    <>
+      {size !== 'small' ? (
+        <Box margin={{ top: 'medium', horizontal: 'medium' }}>
+          {photoPopUp && (
+            <PhotoPopUp photo={selectedPhoto} setPhotoPopUp={setPhotoPopUp} />
+          )}
+          <Box direction="row">
+            <Box margin="small" width="20rem">
+              <Form onSubmit={handleFormSubmission}>
+                <FormField name="date" htmlfor="text-input-id">
+                  <TextInput
+                    id="text-input-id"
+                    type="date"
+                    min={startDate}
+                    max={maxDate}
+                    name="date"
+                    value={selectedDate}
+                    onChange={(e) =>
+                      dispatch(setSelectedDate(e.currentTarget.value, rover))
+                    }
+                  />
+                </FormField>
+                <Box direction="row" gap="medium">
+                  <Button
+                    type="submit"
+                    color="color4"
+                    label="Find Photos"
+                    margin={{ horizontal: '9px' }}
+                  />
+                </Box>
+              </Form>
             </Box>
-          </Form>
+            <CameraList
+              rover={rover}
+              photos={photos}
+              selectedSol={selectedSol}
+            />
+          </Box>
+          <SearchMessages rover={rover} photos={photos} />
+          <PhotoCards rover={rover} handleCardClick={handleCardClick} />
         </Box>
-        <CameraList rover={rover} photos={photos} selectedSol={selectedSol} />
-      </Box>
-      <SearchMessages rover={rover} photos={photos} />
-      <PhotoCards rover={rover} handleCardClick={handleCardClick} />
-    </Box>
+      ) : (
+        <Box
+          fill
+          direction="column"
+          align="center"
+          justify="start"
+          overflow="auto">
+          {photoPopUp && (
+            <PhotoPopUp photo={selectedPhoto} setPhotoPopUp={setPhotoPopUp} />
+          )}
+          <Box
+            flex={false}
+            fill="horizontal"
+            direction="row"
+            align="center"
+            justify="evenly">
+            <Form onSubmit={handleFormSubmission}>
+              <FormField name="date" htmlfor="text-input-id">
+                <TextInput
+                  id="text-input-id"
+                  type="date"
+                  align="center"
+                  min={startDate}
+                  max={maxDate}
+                  name="date"
+                  value={selectedDate}
+                  onChange={(e) =>
+                    dispatch(setSelectedDate(e.currentTarget.value, rover))
+                  }
+                />
+              </FormField>
+              <Box direction="row" gap="medium">
+                <Button type="submit" color="color4" label="Find Photos" />
+              </Box>
+            </Form>
+            <Box
+              flex={false}
+              height="xsmall"
+              width="xsmall"
+              round="xsmall"
+              margin="small"
+              background={`url(/images/${rover}Profile.jpg)`}
+            />
+          </Box>
+          <CameraList
+            rover={rover}
+            photos={photos}
+            classname="camera-list"
+            selectedSol={selectedSol}
+          />
+          <SearchMessages rover={rover} photos={photos} />
+          <PhotoCards rover={rover} handleCardClick={handleCardClick} />
+        </Box>
+      )}
+    </>
   );
 };
 

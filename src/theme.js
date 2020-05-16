@@ -28,6 +28,11 @@ const theme = {
       color: 'color1',
     },
   },
+  dropButton: {
+    border: {
+      color: 'color1',
+    },
+  },
   layer: {
     overlay: {
       background: 'rgba(0, 0, 0, 0.7)',

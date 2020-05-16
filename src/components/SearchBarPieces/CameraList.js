@@ -1,11 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, Grid, Heading, RadioButton, Text } from 'grommet';
+import {
+  Box,
+  DropButton,
+  Grid,
+  Heading,
+  RadioButton,
+  ResponsiveContext,
+  Text,
+} from 'grommet';
 import { Spinning } from 'grommet-controls';
 import { apiBaseUrl } from '../../config';
 import { setSelectedCamera, setCameras } from '../../store/actionsReducer';
 
 const CameraList = ({ photos, selectedSol, rover }) => {
+  const size = useContext(ResponsiveContext); // media query
+
   const masterCameraList = {
     FHAZ: 'Front Hazard Avoidance Camera',
     NAVCAM: 'Navigation Camera',
@@ -44,45 +54,93 @@ const CameraList = ({ photos, selectedSol, rover }) => {
   };
 
   return (
-    <Box fill>
+    <>
       {cameras.length !== 0 ? (
-        <Grid
-          fill={true}
-          rows={['1/2', '1/2']}
-          columns={['1/4', '1/4', '1/4', '1/4']}
-          align="center">
-          <Box direction="row" margin={{ horizontal: 'small' }}>
-            <RadioButton
-              checked={selectedCamera === ''}
-              name="select all"
-              id="all"
-              onChange={(e) => dispatch(setSelectedCamera('', rover))}
-            />
-            <Text margin="small" color="color4">
-              Show All Photos
-            </Text>
-          </Box>
-          {cameras.map((camera) => {
-            return (
-              <Box
-                key={camera}
-                direction="row"
-                margin={{ horizontal: 'small' }}>
+        <>
+          {size !== 'small' ? (
+            <Grid
+              fill={true}
+              rows={['1/2', '1/2']}
+              columns={['1/4', '1/4', '1/4', '1/4']}
+              align="center">
+              <Box direction="row" margin={{ horizontal: 'small' }}>
                 <RadioButton
-                  checked={selectedCamera === camera}
-                  name={masterCameraList[camera]}
-                  id={camera}
-                  onChange={(e) =>
-                    dispatch(setSelectedCamera(e.currentTarget.id, rover))
-                  }
+                  checked={selectedCamera === ''}
+                  name="select all"
+                  id="all"
+                  onChange={(e) => dispatch(setSelectedCamera('', rover))}
                 />
                 <Text margin="small" color="color4">
-                  {masterCameraList[camera]}
+                  Show All Photos
                 </Text>
               </Box>
-            );
-          })}
-        </Grid>
+              {cameras.map((camera) => {
+                return (
+                  <Box
+                    key={camera}
+                    direction="row"
+                    margin={{ horizontal: 'small' }}>
+                    <RadioButton
+                      checked={selectedCamera === camera}
+                      name={masterCameraList[camera]}
+                      id={camera}
+                      onChange={(e) =>
+                        dispatch(setSelectedCamera(e.currentTarget.id, rover))
+                      }
+                    />
+                    <Text margin="small" color="color4">
+                      {masterCameraList[camera]}
+                    </Text>
+                  </Box>
+                );
+              })}
+            </Grid>
+          ) : (
+            <DropButton
+              label="Filter By Camera"
+              margin={{ vertical: 'medium' }}
+              dropAlign={{ top: 'bottom', right: 'right' }}
+              color="color4"
+              dropContent={
+                <>
+                  <Box direction="row" margin={{ horizontal: 'small' }}>
+                    <RadioButton
+                      checked={selectedCamera === ''}
+                      name="select all"
+                      id="all"
+                      onChange={(e) => dispatch(setSelectedCamera('', rover))}
+                    />
+                    <Text margin="small" color="color4">
+                      Show All Photos
+                    </Text>
+                  </Box>
+                  {cameras.map((camera) => {
+                    return (
+                      <Box
+                        key={camera}
+                        direction="row"
+                        margin={{ horizontal: 'small' }}>
+                        <RadioButton
+                          checked={selectedCamera === camera}
+                          name={masterCameraList[camera]}
+                          id={camera}
+                          onChange={(e) =>
+                            dispatch(
+                              setSelectedCamera(e.currentTarget.id, rover)
+                            )
+                          }
+                        />
+                        <Text margin="small" color="color4">
+                          {masterCameraList[camera]}
+                        </Text>
+                      </Box>
+                    );
+                  })}
+                </>
+              }
+            />
+          )}
+        </>
       ) : (
         <Box direction="row" align="center" justify="start" margin="small">
           <Heading level="4" color="color4" margin="large">
@@ -91,7 +149,7 @@ const CameraList = ({ photos, selectedSol, rover }) => {
           <Spinning size="large" color="color4" kind="circle" />
         </Box>
       )}
-    </Box>
+    </>
   );
 };
 

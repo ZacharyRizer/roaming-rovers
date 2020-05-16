@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Heading, Paragraph } from 'grommet';
+import { Box, Heading, Paragraph, ResponsiveContext } from 'grommet';
 import { Spinning } from 'grommet-controls';
 
 const SearchMessages = ({ photos, rover }) => {
+  const size = useContext(ResponsiveContext);
+
   const startDate = useSelector((state) => state[rover].startDate);
   const selectedDate = useSelector((state) => state[rover].selectedDate);
   const isLoading = useSelector((state) => state[rover].isLoading);
@@ -19,11 +21,16 @@ const SearchMessages = ({ photos, rover }) => {
           </Heading>
         </Box>
       ) : null}
-      {startDate === selectedDate && !isLoading ? (
-        <Paragraph fill={true} color="color4" size="large">
-          These are the first photos {rover} sent back! Filter these images by
-          camera or enter another date to see more of {rover}'s expedition!
-        </Paragraph>
+      {size !== 'small' ? (
+        <>
+          {startDate === selectedDate && !isLoading ? (
+            <Paragraph fill={true} color="color4" size="large">
+              These are the first photos {rover} sent back! Filter these images
+              by camera or enter another date to see more of {rover}'s
+              expedition!
+            </Paragraph>
+          ) : null}
+        </>
       ) : null}
       {photos.length === 0 && !isLoading ? (
         <Paragraph fill={true} margin="small" color="color4" size="large">

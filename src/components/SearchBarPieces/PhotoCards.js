@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Box } from 'grommet';
+import { Box, ResponsiveContext } from 'grommet';
 import { apiBaseUrl } from '../../config';
 import { addPhotos } from '../../store/actionsReducer';
 
 const PhotoCards = ({ handleCardClick, rover }) => {
+  const size = useContext(ResponsiveContext);
+
   const [pageNum, setPageNum] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const photos = useSelector((state) => state[rover].photos);
@@ -64,17 +66,33 @@ const PhotoCards = ({ handleCardClick, rover }) => {
   });
 
   return (
-    <Box flex overflow="auto" id="photo-container">
-      <InfiniteScroll
-        dataLength={photos.length}
-        next={loadMorePhotos}
-        hasMore={hasMore}
-        scrollableTarget="photo-container">
-        <Box direction="row" wrap={true}>
-          {photoCards}
+    <>
+      {size !== 'small' ? (
+        <Box flex overflow="auto" id="photo-container">
+          <InfiniteScroll
+            dataLength={photos.length}
+            next={loadMorePhotos}
+            hasMore={hasMore}
+            scrollableTarget="photo-container">
+            <Box direction="row" wrap={true}>
+              {photoCards}
+            </Box>
+          </InfiniteScroll>
         </Box>
-      </InfiniteScroll>
-    </Box>
+      ) : (
+        <Box flex id="photo-container" justify="start">
+          <InfiniteScroll
+            dataLength={photos.length}
+            next={loadMorePhotos}
+            hasMore={hasMore}
+            scrollableTarget="photo-container">
+            <Box direction="row" justify="center" wrap={true}>
+              {photoCards}
+            </Box>
+          </InfiniteScroll>
+        </Box>
+      )}
+    </>
   );
 };
 export default PhotoCards;
