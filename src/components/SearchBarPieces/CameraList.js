@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Box,
@@ -15,6 +15,7 @@ import { setSelectedCamera, setCameras } from '../../store/actionsReducer';
 
 const CameraList = ({ photos, selectedSol, rover }) => {
   const size = useContext(ResponsiveContext); // media query
+  const [dropOpen, setDropOpen] = useState(false);
 
   const masterCameraList = {
     FHAZ: 'Front Hazard Avoidance Camera',
@@ -101,6 +102,8 @@ const CameraList = ({ photos, selectedSol, rover }) => {
               margin={{ vertical: 'medium' }}
               dropAlign={{ top: 'bottom', right: 'right' }}
               color="color4"
+              open={dropOpen}
+              onClick={() => setDropOpen(true)}
               dropContent={
                 <>
                   <Box direction="row" margin={{ horizontal: 'small' }}>
@@ -108,6 +111,7 @@ const CameraList = ({ photos, selectedSol, rover }) => {
                       checked={selectedCamera === ''}
                       name="select all"
                       id="all"
+                      onClick={() => setDropOpen(false)}
                       onChange={(e) => dispatch(setSelectedCamera('', rover))}
                     />
                     <Text margin="small" color="color4">
@@ -124,6 +128,7 @@ const CameraList = ({ photos, selectedSol, rover }) => {
                           checked={selectedCamera === camera}
                           name={masterCameraList[camera]}
                           id={camera}
+                          onClick={() => setDropOpen(false)}
                           onChange={(e) =>
                             dispatch(
                               setSelectedCamera(e.currentTarget.id, rover)

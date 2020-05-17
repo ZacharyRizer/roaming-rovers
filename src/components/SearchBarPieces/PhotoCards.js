@@ -80,7 +80,7 @@ const PhotoCards = ({ handleCardClick, rover }) => {
           </InfiniteScroll>
         </Box>
       ) : (
-        <Box flex id="photo-container" justify="start">
+        <Box flex overflow="auto" id="photo-container" justify="start">
           <InfiniteScroll
             dataLength={photos.length}
             next={loadMorePhotos}
