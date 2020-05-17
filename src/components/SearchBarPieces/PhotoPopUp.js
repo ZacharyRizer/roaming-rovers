@@ -23,7 +23,7 @@ const PhotoPopUp = ({ photo, setPhotoPopUp }) => {
       ) : (
         <Box
           fill
-          background="rgba(0,0,0,0.8)"
+          background="rgba(0,0,0,0.9)"
           direction="column"
           justify="start">
           <Image fit="contain" src={photo.img_src} />
