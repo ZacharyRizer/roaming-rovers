@@ -10,6 +10,11 @@ body {
   color: #40152a;
   text-decoration: none;
 }
+.side-bar-details {
+  padding-bottom: 13px;
+  border-radius: 10px;
+  border-bottom: 1px solid #40152a;
+}
 .active {
   color: #ff1717;
   font-weight: 700;
