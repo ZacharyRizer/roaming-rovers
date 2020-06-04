@@ -1,4 +1,4 @@
-# [Roaming Rovers <img src="/public/images/mars.svg" alt="icon" width="30" />](https://roaming-rovers.herokuapp.com/)
+# [Roaming Rovers <img src="/public/images/mars.svg" alt="icon" width="30" />](https://roaming-rovers.herokuapp.com/) -- live link
 
 ### _Exploring Mars with Curiosity, Spirit, and Opportunity_
 
