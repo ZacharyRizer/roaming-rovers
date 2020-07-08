@@ -36,7 +36,7 @@ const CameraList = ({ photos, selectedSol, rover }) => {
 
   useEffect(() => {
     createCameraList();
-  }, [photos]);
+  }, [JSON.stringify(photos)]);
 
   const createCameraList = async () => {
     try {
