@@ -71,7 +71,7 @@ const CameraList = ({ photos, selectedSol, rover }) => {
                   id="all"
                   onChange={(e) => dispatch(setSelectedCamera('', rover))}
                 />
-                <Text margin="small" color="color4">
+                <Text margin="small" color="color4" size="small">
                   Show All Photos
                 </Text>
               </Box>
@@ -89,7 +89,7 @@ const CameraList = ({ photos, selectedSol, rover }) => {
                         dispatch(setSelectedCamera(e.currentTarget.id, rover))
                       }
                     />
-                    <Text margin="small" color="color4">
+                    <Text margin="small" color="color4" size="small">
                       {masterCameraList[camera]}
                     </Text>
                   </Box>

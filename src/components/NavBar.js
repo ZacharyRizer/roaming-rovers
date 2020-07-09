@@ -26,7 +26,7 @@ const NavBar = (props) => {
           style={{ zIndex: '1' }}
           {...props}>
           <Link to="/">
-            <Button>
+            <Button focusIndicator={false}>
               <Box direction="row" align="center" justify="evenly">
                 <Box
                   height="xxsmall"

@@ -11,7 +11,7 @@ const SearchMessages = ({ photos, rover }) => {
   const isLoading = useSelector((state) => state[rover].isLoading);
 
   return (
-    <Box margin="small">
+    <Box margin="xsmall">
       {isLoading ? (
         <Box fill direction="column" align="center" justify="start">
           <Box height="10rem" />
@@ -24,7 +24,7 @@ const SearchMessages = ({ photos, rover }) => {
       {size !== 'small' ? (
         <>
           {startDate === selectedDate && !isLoading ? (
-            <Paragraph fill={true} color="color4" size="large">
+            <Paragraph fill={true} color="color4" size="medium">
               These are the first photos {rover} sent back! Filter these images
               by camera or enter another date to see more of {rover}'s
               expedition!

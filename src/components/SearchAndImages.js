@@ -95,7 +95,7 @@ const SearchAndImages = ({ rover }) => {
   return (
     <>
       {size !== 'small' ? (
-        <Box margin={{ top: 'medium', horizontal: 'medium' }}>
+        <Box margin={{ top: 'xsmall', horizontal: 'medium' }}>
           {photoPopUp && (
             <PhotoPopUp photo={selectedPhoto} setPhotoPopUp={setPhotoPopUp} />
           )}
@@ -115,7 +115,7 @@ const SearchAndImages = ({ rover }) => {
                     }
                   />
                 </FormField>
-                <Box direction="row" gap="medium">
+                <Box direction="row" gap="small">
                   <Button
                     type="submit"
                     color="color4"
