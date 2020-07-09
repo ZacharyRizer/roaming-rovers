@@ -24,7 +24,7 @@ const SearchMessages = ({ photos, rover }) => {
       {size !== 'small' ? (
         <>
           {startDate === selectedDate && !isLoading ? (
-            <Paragraph fill={true} color="color4" size="medium">
+            <Paragraph fill={true} color="color4" size="medium" margin="xsmall">
               These are the first photos {rover} sent back! Filter these images
               by camera or enter another date to see more of {rover}'s
               expedition!

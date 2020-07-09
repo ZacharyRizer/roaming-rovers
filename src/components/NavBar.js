@@ -81,7 +81,8 @@ const NavBar = (props) => {
           <DropButton
             label="Photos"
             open={dropOpen}
-            onClick={() => setDropOpen(true)}
+            onClose={() => setDropOpen(false)}
+            onOpen={() => setDropOpen(true)}
             dropAlign={{ top: 'bottom', right: 'right' }}
             color="color1"
             dropContent={

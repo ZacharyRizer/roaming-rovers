@@ -45,6 +45,7 @@ const theme = {
         color: 'color1',
       },
     },
+    size: '18px',
   },
 };
 

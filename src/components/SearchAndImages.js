@@ -100,7 +100,7 @@ const SearchAndImages = ({ rover }) => {
             <PhotoPopUp photo={selectedPhoto} setPhotoPopUp={setPhotoPopUp} />
           )}
           <Box direction="row">
-            <Box margin="small" width="20rem">
+            <Box margin=" small" width="20rem">
               <Form onSubmit={handleFormSubmission}>
                 <FormField name="date" htmlfor="text-input-id">
                   <TextInput

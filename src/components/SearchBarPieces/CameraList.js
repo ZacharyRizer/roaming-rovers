@@ -71,7 +71,7 @@ const CameraList = ({ photos, selectedSol, rover }) => {
                   id="all"
                   onChange={(e) => dispatch(setSelectedCamera('', rover))}
                 />
-                <Text margin="small" color="color4" size="small">
+                <Text margin="xsmall" color="color4" size="small">
                   Show All Photos
                 </Text>
               </Box>
@@ -89,7 +89,7 @@ const CameraList = ({ photos, selectedSol, rover }) => {
                         dispatch(setSelectedCamera(e.currentTarget.id, rover))
                       }
                     />
-                    <Text margin="small" color="color4" size="small">
+                    <Text margin="xsmall" color="color4" size="small">
                       {masterCameraList[camera]}
                     </Text>
                   </Box>
@@ -99,11 +99,12 @@ const CameraList = ({ photos, selectedSol, rover }) => {
           ) : (
             <DropButton
               label="Filter By Camera"
-              margin={{ vertical: 'medium' }}
+              margin={{ vertical: 'xsmall' }}
               dropAlign={{ top: 'bottom', right: 'right' }}
               color="color4"
               open={dropOpen}
-              onClick={() => setDropOpen(true)}
+              onClose={() => setDropOpen(false)}
+              onOpen={() => setDropOpen(true)}
               dropContent={
                 <>
                   <Box direction="row" margin={{ horizontal: 'small' }}>
