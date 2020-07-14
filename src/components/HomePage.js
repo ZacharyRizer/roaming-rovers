@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import {
   Box,
+  Button,
   Carousel,
   Heading,
   Image,
@@ -41,6 +42,25 @@ const HomePage = (props) => {
               above to see what they saw, and to learn more about the Rover's
               themselves!
             </Paragraph>
+            <Heading textAlign="start" level={4} color="color4">
+              Site Created By Zachary Rizer
+            </Heading>
+            <Box direction="row" justify="start" margin="none">
+              <a href="https://github.com/ZacharyRizer">
+                <Button primary={true} color="color4" label="GitHub" />
+              </a>
+              <a href="https://www.linkedin.com/in/zachary-rizer/">
+                <Button
+                  primary={true}
+                  color="color4"
+                  label="LinkedIn"
+                  margin={{ horizontal: '5px' }}
+                />
+              </a>
+              <a href="http://zacharyrizer.com/">
+                <Button primary={true} color="color4" label="Portfolio" />
+              </a>
+            </Box>
           </Box>
           <Box
             flex={false}
@@ -120,6 +140,35 @@ const HomePage = (props) => {
             neighbor right alongside Curiosity, Spirit, and Opportunity. Click
             above to see the raw images sent back to Earth!
           </Paragraph>
+          <Heading textAlign="start" level={4} color="color4">
+            Site Created By Zachary Rizer
+          </Heading>
+          <div>
+            <a href="https://github.com/ZacharyRizer">
+              <Button
+                primary={true}
+                color="color4"
+                label="GitHub"
+                margin={{ bottom: '10px' }}
+              />
+            </a>
+            <a href="https://www.linkedin.com/in/zachary-rizer/">
+              <Button
+                primary={true}
+                color="color4"
+                label="LinkedIn"
+                margin={{ horizontal: '5px', bottom: '10px' }}
+              />
+            </a>
+            <a href="http://zacharyrizer.com/">
+              <Button
+                primary={true}
+                color="color4"
+                label="Portfolio"
+                margin={{ bottom: '10px' }}
+              />
+            </a>
+          </div>
         </Box>
       )}
     </>
